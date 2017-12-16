@@ -1,16 +1,20 @@
-import java.io.Serializable;
+package data;
+
 import java.util.ArrayList;
 
-public class Notes implements Serializable{
-    private static final long serialVerionUID = 1L;
-    ArrayList<Note> notes;
+public class Notes{
+    private ArrayList<Note> notes;
 
     public Notes() {
-        notes = new ArrayList<Note>();
+        notes = new ArrayList<>();
     }
 
     public void addNote(Note note){
         notes.add(note);
+    }
+
+    public int getSize(){
+        return notes.size();
     }
 
     public void editNote(int noteIndex, String subject, String information){
@@ -19,5 +23,9 @@ public class Notes implements Serializable{
 
     public void removeNote(int noteIndex){
         notes.remove(noteIndex);
+    }
+
+    public Note getNote(int noteIndex){
+        return notes.get(noteIndex);
     }
 }

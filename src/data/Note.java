@@ -1,8 +1,10 @@
+package data;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Note implements Serializable{
+public class Note{
     private LocalDateTime createdDate, lastUpdate;
     private String subject, information;
     private DateTimeFormatter dtf;
@@ -31,7 +33,7 @@ public class Note implements Serializable{
         return information;
     }
 
-    public void edit(String subject, String information){
+    void edit(String subject, String information){
         this.subject = subject;
         this.information = information;
         lastUpdate = LocalDateTime.now();
