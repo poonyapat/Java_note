@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI_Javafx.NoteManageController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import javafx.scene.text.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1"
+          fx:controller="GUI_Javafx.NoteManageController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Button fx:id="readNoteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#actionReadNote" text="READ NOTE">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </Button>
+                <Button fx:id="writeNoteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#actionWriteNote" text="WRITE NOTE" GridPane.rowIndex="1"/>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#actionSignOut" text="SIGN OUT" GridPane.rowIndex="2"/>
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        onAction="#actionExit" text="EXIT" GridPane.rowIndex="3"/>
+            </children>
+        </GridPane>
+        <AnchorPane fx:id="writePartAnchorPane" prefHeight="200.0" prefWidth="200.0" visible="false"
+                    GridPane.columnIndex="1">
+            <children>
+                <Label layoutX="56.0" layoutY="46.0" text="Subject" AnchorPane.leftAnchor="50.0"
+                       AnchorPane.topAnchor="25.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <TextArea fx:id="addedDetail" layoutX="157.0" layoutY="131.0" prefHeight="275.0" prefWidth="400.0"
+                          AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="75.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextArea>
+                <Label layoutX="42.0" layoutY="89.0" text="Detail" AnchorPane.leftAnchor="50.0"
+                       AnchorPane.topAnchor="90.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="addedSubject" layoutX="136.0" layoutY="33.0" prefWidth="400.0"
+                           AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="20.0">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </TextField>
+                <Button layoutX="120.0" layoutY="350.0" mnemonicParsing="false" onAction="#actionAddSubmit"
+                        prefHeight="40.0" prefWidth="200.0" text="Submit" AnchorPane.bottomAnchor="50.0"
+                        AnchorPane.leftAnchor="120.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="320.0" layoutY="360.0" mnemonicParsing="false" onAction="#actionAddCancel"
+                        prefHeight="40.0" prefWidth="200.0" text="Cancel" AnchorPane.bottomAnchor="50.0"
+                        AnchorPane.leftAnchor="320.0">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <GridPane fx:id="readPartGridPane" GridPane.columnIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <ScrollPane hbarPolicy="NEVER">
+                    <content>
+                        <GridPane fx:id="subjectGridPane" minHeight="50.0" minWidth="198.0"/>
+                    </content>
+                </ScrollPane>
+                <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="450.0" GridPane.columnIndex="1">
+                    <content>
+                        <AnchorPane fx:id="detailAnchorPane" maxHeight="1.7976931348623157E308"
+                                    maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="450.0">
+                            <children>
+                                <Label fx:id="createdDateLabel" layoutX="14.0" layoutY="14.0"
+                                       AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="subjectLabel" layoutX="68.0" layoutY="47.0" AnchorPane.leftAnchor="20.0"
+                                       AnchorPane.topAnchor="50.0">
+                                    <font>
+                                        <Font size="20.0"/>
+                                    </font>
+                                </Label>
+                                <Label fx:id="detailLabel" layoutX="28.0" layoutY="92.0"
+                                       maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="25.0"
+                                       AnchorPane.topAnchor="90.0">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="50.0"/>
+                                    </padding>
+                                </Label>
+                                <Label fx:id="lastUpdateLabel" AnchorPane.bottomAnchor="15.0"
+                                       AnchorPane.leftAnchor="15.0">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </ScrollPane>
+            </children>
+        </GridPane>
+    </children>
+</GridPane>
