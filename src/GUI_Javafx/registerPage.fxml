@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI_Javafx.RegisterPage"
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="450.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/9.0.1" fx:controller="GUI_Javafx.RegisterController">
+    <children>
+        <Label alignment="CENTER" layoutX="266.0" layoutY="25.0" minWidth="-Infinity" prefHeight="30.0"
+               prefWidth="200.0" text="REGISTRATION" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0"
+               AnchorPane.topAnchor="25.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="121.0" layoutY="107.0" prefHeight="30.0" prefWidth="150.0" text="Username"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="75.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="107.0" layoutY="141.0" prefHeight="30.0" prefWidth="150.0" text="Password"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="120.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="107.0" layoutY="183.0" prefHeight="30.0" prefWidth="150.0" text="First name"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="210.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="107.0" layoutY="234.0" prefHeight="30.0" prefWidth="150.0" text="Last name"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="255.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="107.0" layoutY="272.0" prefHeight="30.0" prefWidth="150.0" text="Email"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="300.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="117.0" layoutY="151.0" prefHeight="30.0" prefWidth="150.0" text="Confirm-Password"
+               AnchorPane.leftAnchor="125.0" AnchorPane.topAnchor="165.0">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="usernameTextField" layoutX="216.0" layoutY="103.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="username" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="75.0"/>
+        <TextField fx:id="passwordTextField" layoutX="226.0" layoutY="113.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="password" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="120.0"/>
+        <TextField fx:id="confirmPwdTextField" layoutX="226.0" layoutY="113.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="confirm-password" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="165.0"/>
+        <TextField fx:id="firstNameTextField" layoutX="226.0" layoutY="113.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="first name" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="210.0"/>
+        <TextField fx:id="lastNameTextField" layoutX="226.0" layoutY="113.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="last name" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="255.0"/>
+        <TextField fx:id="emailTextField" layoutX="236.0" layoutY="123.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="email" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="300.0"/>
+        <Button layoutX="260.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="30.0"
+                prefWidth="100.0" text="Submit" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="150.0"/>
+        <Button layoutX="250.0" layoutY="345.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="30.0"
+                prefWidth="100.0" text="Cancel" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="150.0"/>
+    </children>
 </AnchorPane>
