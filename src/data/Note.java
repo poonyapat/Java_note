@@ -4,25 +4,23 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Note{
+public class Note implements Serializable {
     private LocalDateTime createdDate, lastUpdate;
     private String subject, information;
-    private DateTimeFormatter dtf;
 
     public Note(String subject, String information) {
         this.subject = subject;
         this.information = information;
         createdDate = LocalDateTime.now();
         lastUpdate = createdDate;
-        dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
     }
 
     public String getCreatedDate() {
-        return dtf.format(createdDate);
+        return DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm").format(createdDate);
     }
 
     public String getLastUpdate() {
-        return dtf.format(lastUpdate);
+        return DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm").format(lastUpdate);
     }
 
     public String getSubject() {
