@@ -29,7 +29,8 @@ public class RegisterController {
             );
             oios.writeObject(newUserData, newUserData.getUsername() + ".ser");
             oios.writeObject(NoteGUISystem.accountSystem, "as.ser");
-        }
+        } else
+            return;
         PageChanger.changePage(this, usernameTextField, "loginPage.fxml");
     }
 

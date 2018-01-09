@@ -36,7 +36,6 @@ public class NoteManageController {
         subjectGridPane.getChildren().removeAll(subjectGridPane.getChildren());
         for (int i = 0; i < userData.notes.getSize(); i++) {
             subjectGridPane.addRow(i, createSubjectRow(userData.notes.getSize() - 1 - i));
-            System.out.println(subjectGridPane.getChildren().size());
         }
         changePart(PagePart.READ);
     }

@@ -32,6 +32,7 @@ public class NoteGUISystem extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("loginPage.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Note V.1.0");
         stage.show();
     }
 }
