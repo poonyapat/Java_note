@@ -28,11 +28,17 @@ public class LoginController {
             return;
         }
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("noteManagePage.fxml"));
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("noteManagePage.fxml"));
+//            Parent root = loader.load();
+//            NoteManageController controller = loader.getController();
+//            controller.setUser(new ObjectIOStream().readUserDataFile(usernameTextField.getText() + ".ser"));
+//            controller.actionReadNote();
+//            Stage stage = (Stage) usernameTextField.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("notePage.fxml"));
             Parent root = loader.load();
-            NoteManageController controller = loader.getController();
+            NotePageController controller = loader.getController();
             controller.setUser(new ObjectIOStream().readUserDataFile(usernameTextField.getText() + ".ser"));
-            controller.actionReadNote();
+            controller.updateSubjectRow();
             Stage stage = (Stage) usernameTextField.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
