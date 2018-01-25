@@ -22,34 +22,44 @@ public class NotePageController {
     @FXML
     TextArea noteBodyTextArea;
     @FXML
-    TextField noteHeaderTextField, addTagTextField;
+    TextField noteHeaderTextField;
     @FXML
-    ComboBox<String> noteCategoryComboBox;
+    ComboBox<String> noteCategoryComboBox, filterComboBox;
     @FXML
     GridPane subjectGridPane;
 
     private UserData userData;
-    private ObservableList<String> noteCategories;
+    private ObservableList<String> noteCategories, filterCategories;
     private int selectedIndex;
 
     @FXML
     public void initialize() {
         noteCategories = FXCollections.observableArrayList();
+        filterCategories = FXCollections.observableArrayList();
         selectedIndex = -1;
+        filterComboBox.valueProperty().addListener((observable, oldValue, newValue) -> updateSubjectRow(newValue));
     }
 
     public void setUser(UserData userData) {
         this.userData = userData;
         noteCategories.addAll(userData.notes.getCategories());
+        filterCategories.addAll(userData.notes.getCategories());
         noteCategories.add("Add New Category");
+        filterCategories.add("All");
         noteCategoryComboBox.setItems(noteCategories);
+        filterComboBox.setItems(filterCategories);
+        filterComboBox.getSelectionModel().select(filterCategories.indexOf("All"));
     }
 
     @FXML
-    void updateSubjectRow() {
+    void updateSubjectRow(String filterCate) {
         subjectGridPane.getChildren().removeAll(subjectGridPane.getChildren());
+        int index = 0;
         for (int i = 0; i < userData.notes.getSize(); i++) {
-            subjectGridPane.addRow(i, createSubjectRow(userData.notes.getSize() - 1 - i));
+            if (filterCate.equals(userData.notes.getNote(userData.notes.getSize() - 1 - i).getCategory()) || filterCate.equals("All")) {
+                subjectGridPane.addRow(index, createSubjectRow(userData.notes.getSize() - 1 - i));
+                index++;
+            }
         }
     }
 
@@ -60,14 +70,18 @@ public class NotePageController {
         );
         label.setPrefSize(225, 50);
         label.setOnMouseClicked(event -> {
-            if (selectedIndex != index) {
-                selectedIndex = index;
-                noteHeaderTextField.setText(note.getSubject());
-                noteBodyTextArea.setText(note.getInformation());
-                noteCategoryComboBox.getSelectionModel().select(note.getCategory());
-            }
+            if (selectedIndex != index)
+                selectSubject(index, note);
         });
         return label;
+    }
+
+    private void selectSubject(int index, Note note) {
+        selectedIndex = index;
+        noteHeaderTextField.setText(note.getSubject());
+        noteBodyTextArea.setText(note.getInformation());
+        noteCategoryComboBox.getSelectionModel().select(note.getCategory());
+        System.out.println(index);
     }
 
     private String setSubjectRowText(Note note) {
@@ -83,9 +97,9 @@ public class NotePageController {
     }
 
     @FXML
-    private void actionSubmitNote() {
+    private void actionSaveNote() {
         if (noteHeaderTextField.getText().isEmpty() || noteBodyTextArea.getText().isEmpty() || noteCategoryComboBox.getValue() == null) {
-            new Alert(Alert.AlertType.ERROR, "Please add text to Header and Body before SUBMIT").show();
+            new Alert(Alert.AlertType.ERROR, "Please add text to Header, Body and Select Category before SAVE").show();
             return;
         }
         if (selectedIndex != -1) {
@@ -96,7 +110,16 @@ public class NotePageController {
         }
         userData.notes.setCategories(noteCategories);
         new ObjectIOStream().writeObject(userData, userData.getUsername() + ".ser");
-        updateSubjectRow();
+        updateSubjectRow(filterComboBox.getValue());
+    }
+
+    @FXML
+    private void actionSaveNewNote() {
+        userData.notes.addNote(new Note(noteHeaderTextField.getText(), noteBodyTextArea.getText(), noteCategoryComboBox.getValue(), new ArrayList<>()));
+        selectedIndex = userData.notes.getSize() - 1;
+        userData.notes.setCategories(noteCategories);
+        new ObjectIOStream().writeObject(userData, userData.getUsername() + ".ser");
+        updateSubjectRow(filterComboBox.getValue());
     }
 
     @FXML
@@ -111,19 +134,17 @@ public class NotePageController {
             confirmButton.setPrefWidth(100);
             confirmButton.setTranslateX(150);
             confirmButton.setTranslateY(125);
-            confirmButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<Event>() {
-                @Override
-                public void handle(Event event) {
-                    if (noteCategories.contains(newCate.getText())) {
-                        noteCategoryComboBox.getSelectionModel().select(newCate.getText());
-                        new Alert(Alert.AlertType.WARNING, "This Category is already in your categories list").show();
-                    } else {
-                        noteCategories.add(noteCategories.size() - 1, newCate.getText());
-                        noteCategoryComboBox.getSelectionModel().selectPrevious();
-                    }
-                    noteCategoryComboBox.getParent().getParent().getParent().setDisable(false);
-                    ((Stage) confirmButton.getScene().getWindow()).close();
+            confirmButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (EventHandler<Event>) event -> {
+                if (noteCategories.contains(newCate.getText())) {
+                    noteCategoryComboBox.getSelectionModel().select(newCate.getText());
+                    new Alert(Alert.AlertType.WARNING, "This Category is already in your categories list").show();
+                } else {
+                    noteCategories.add(noteCategories.size() - 1, newCate.getText());
+                    filterCategories.add(filterCategories.size() - 1, newCate.getText());
+                    noteCategoryComboBox.getSelectionModel().selectPrevious();
                 }
+                noteCategoryComboBox.getParent().getParent().getParent().setDisable(false);
+                ((Stage) confirmButton.getScene().getWindow()).close();
             });
             Parent root = new Pane(newCate, confirmButton);
             Stage stage = new Stage();
@@ -143,5 +164,19 @@ public class NotePageController {
     @FXML
     private void actionExit() {
         System.exit(0);
+    }
+
+    @FXML
+    private void deleteNote() {
+        userData.notes.removeNote(selectedIndex);
+        selectedIndex--;
+        if (selectedIndex < 0)
+            selectedIndex = 0;
+        if (userData.notes.getSize() == 0)
+            actionNewNote();
+        else
+            selectSubject(selectedIndex, userData.notes.getNote(selectedIndex));
+        new ObjectIOStream().writeObject(userData, userData.getUsername() + ".ser");
+        updateSubjectRow(filterComboBox.getValue());
     }
 }

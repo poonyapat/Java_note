@@ -4,14 +4,16 @@ import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Notes implements Serializable {
     private ArrayList<Note> notes;
-    private ArrayList<String> categories;
+    private Set<String> categories;
 
     public Notes() {
         notes = new ArrayList<>();
-        categories = new ArrayList<>();
+        categories = new TreeSet<>();
     }
 
     public void addNote(Note note){
@@ -34,7 +36,7 @@ public class Notes implements Serializable {
         return notes.get(noteIndex);
     }
 
-    public ArrayList<String> getCategories() {
+    public Set<String> getCategories() {
         return categories;
     }
 
